@@ -7,8 +7,8 @@ namespace App\Amqp\Producer;
 use Hyperf\Amqp\Annotation\Producer;
 use Hyperf\Amqp\Message\ProducerMessage;
 
-#[Producer(exchange: 'comments', routingKey: 'comment-created')]
-class CommentCreated extends ProducerMessage
+#[Producer(exchange: 'comments', routingKey: 'comment-moderated')]
+class CommentModerated extends ProducerMessage
 {
     public function __construct($data)
     {

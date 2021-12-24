@@ -46,6 +46,9 @@ EXPOSE 9502
 FROM base as query
 EXPOSE 9503
 
+FROM base as moderation
+EXPOSE 9504
+
 
 FROM node:17-alpine as node-base
 WORKDIR /opt/www

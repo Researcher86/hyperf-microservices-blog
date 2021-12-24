@@ -8,12 +8,16 @@ use Hyperf\DbConnection\Model\Model;
 
 /**
  * @property $id
- * @property $post_id
- * @property $title
- * @property $comments
+ * @property $comment_id
+ * @property $content
+ * @property $status
  */
-class Post extends Model
+class Comment extends Model
 {
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_REJECTED = 'rejected';
+
     public $timestamps = false;
 
     /**
@@ -21,17 +25,17 @@ class Post extends Model
      *
      * @var string
      */
-    protected $table = 'posts';
+    protected $table = 'comments';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'post_id', 'title', 'comments'];
+    protected $fillable = ['id', 'comment_id', 'content', 'status'];
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = ['id' => 'integer', 'post_id' => 'integer', 'comments' => 'array'];
+    protected $casts = ['id' => 'integer', 'comment_id' => 'integer'];
 }

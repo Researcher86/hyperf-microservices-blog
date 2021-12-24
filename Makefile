@@ -29,6 +29,9 @@ comments-bash:
 query-bash:
 	docker-compose exec query bash
 
+moderation-bash:
+	docker-compose exec moderation bash
+
 
 gen-producer:
 	docker-compose exec hyperf php bin/hyperf.php gen:amqp-producer DemoProducer
@@ -52,11 +55,13 @@ migrate:
 	docker-compose exec posts php bin/hyperf.php migrate
 	docker-compose exec comments php bin/hyperf.php migrate
 	docker-compose exec query php bin/hyperf.php migrate
+	docker-compose exec moderation php bin/hyperf.php migrate
 
 php-clear:
 	rm -rf comments/runtime/container
 	rm -rf posts/runtime/container
 	rm -rf query/runtime/container
+	rm -rf moderation/runtime/container
 
 # make bench
 bench:

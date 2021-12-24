@@ -13,8 +13,8 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('post_id')->index('post_id_idx');
-            $table->text('content');
+            $table->integer('comment_id')->index('comment_id_idx');
+            $table->string('content');
             $table->string('status')->default('pending');
         });
     }

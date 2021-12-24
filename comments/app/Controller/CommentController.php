@@ -26,8 +26,8 @@ class CommentController extends AbstractController
     {
         $data = json_decode($this->request->getBody()->getContents(), true);
         $data['post_id'] = $postId;
+        $data['status'] = Comment::STATUS_PENDING;
         $comment = Comment::create($data);
-        $comment->save();
 
         $this->producer->produce(new CommentCreated($comment));
 

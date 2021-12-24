@@ -8,10 +8,16 @@ use Hyperf\DbConnection\Model\Model;
 
 /**
  * @property $id
+ * @property $post_id
  * @property $content
+ * @property $status
  */
 class Comment extends Model
 {
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_REJECTED = 'rejected';
+
     public $timestamps = false;
 
     /**
@@ -25,7 +31,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'post_id', 'content'];
+    protected $fillable = ['id', 'post_id', 'content', 'status'];
     /**
      * The attributes that should be cast to native types.
      *

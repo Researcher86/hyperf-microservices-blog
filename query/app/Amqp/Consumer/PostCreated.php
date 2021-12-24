@@ -12,7 +12,7 @@ use Hyperf\Logger\LoggerFactory;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Log\LoggerInterface;
 
-#[Consumer(exchange: 'events', routingKey: 'posts', queue: 'posts', name: "PostCreated", nums: 1)]
+#[Consumer(exchange: 'posts', routingKey: 'post-created', queue: 'query-post-created', name: "PostCreated", nums: 1)]
 class PostCreated extends ConsumerMessage
 {
     private LoggerInterface $logger;
@@ -31,6 +31,8 @@ class PostCreated extends ConsumerMessage
             $post = Post::create(['post_id' => $data['id'], 'title' => $data['title']]);
             $post->save();
             $this->logger->info('Created new Post', (array) $post);
+        } else {
+            $this->logger->warning(sprintf('Post by post_id [%d] already exists.', $data['post_id']), $data);
         }
 
         return Result::ACK;

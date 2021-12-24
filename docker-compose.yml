@@ -107,6 +107,36 @@ services:
         volumes:
             - query_db_data:/var/lib/mysql
 
+    moderation:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: moderation
+        container_name: moderation
+        environment:
+            - COMPOSER_ALLOW_SUPERUSER=true
+        ports:
+            -   "9504:9504"
+        volumes:
+            -   ./moderation:/opt/www
+        entrypoint: ["php", "/opt/www/bin/hyperf.php", "server:watch"]
+        depends_on:
+            - moderation-mysql
+            - rabbit-mq
+
+    moderation-mysql:
+        image: mysql:5.7
+        restart: unless-stopped
+        container_name: moderation-mysql
+        environment:
+            - MYSQL_DATABASE=moderation
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=1
+        ports:
+            - "3313:3306"
+        volumes:
+            - moderation_db_data:/var/lib/mysql
+
     rabbit-mq:
         image: rabbitmq:3.8.9-management
         restart: unless-stopped
@@ -126,4 +156,7 @@ volumes:
         driver: local
     query_db_data:
         name: query_db_data
+        driver: local
+    moderation_db_data:
+        name: moderation_db_data
         driver: local

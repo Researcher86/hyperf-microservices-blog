@@ -1,0 +1,129 @@
+version: '3.9'
+
+services:
+    client:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: client
+        container_name: client
+        ports:
+            -   "3000:3000"
+        volumes:
+            -   ./client:/opt/www
+        command: npm start
+        tty: true
+        depends_on:
+            - posts
+            - comments
+
+    posts:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: posts
+        container_name: posts
+        environment:
+            - COMPOSER_ALLOW_SUPERUSER=true
+        ports:
+            -   "9501:9501"
+        volumes:
+            -   ./posts:/opt/www
+        entrypoint: ["php", "/opt/www/bin/hyperf.php", "server:watch"]
+        depends_on:
+            - posts-mysql
+            - rabbit-mq
+
+    posts-mysql:
+        image: mysql:5.7
+        restart: unless-stopped
+        container_name: posts-mysql
+        environment:
+            - MYSQL_DATABASE=posts
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=1
+        ports:
+            - "3310:3306"
+        volumes:
+            - posts_db_data:/var/lib/mysql
+
+    comments:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: comments
+        container_name: comments
+        environment:
+            - COMPOSER_ALLOW_SUPERUSER=true
+        ports:
+            -   "9502:9502"
+        volumes:
+            -   ./comments:/opt/www
+        entrypoint: ["php", "/opt/www/bin/hyperf.php", "server:watch"]
+        depends_on:
+            - comments-mysql
+            - rabbit-mq
+
+    comments-mysql:
+        image: mysql:5.7
+        restart: unless-stopped
+        container_name: comments-mysql
+        environment:
+            - MYSQL_DATABASE=comments
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=1
+        ports:
+            - "3311:3306"
+        volumes:
+            - comments_db_data:/var/lib/mysql
+
+    query:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: query
+        container_name: query
+        environment:
+            - COMPOSER_ALLOW_SUPERUSER=true
+        ports:
+            -   "9503:9503"
+        volumes:
+            -   ./query:/opt/www
+        entrypoint: ["php", "/opt/www/bin/hyperf.php", "server:watch"]
+        depends_on:
+            - query-mysql
+            - rabbit-mq
+
+    query-mysql:
+        image: mysql:5.7
+        restart: unless-stopped
+        container_name: query-mysql
+        environment:
+            - MYSQL_DATABASE=query
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=1
+        ports:
+            - "3312:3306"
+        volumes:
+            - query_db_data:/var/lib/mysql
+
+    rabbit-mq:
+        image: rabbitmq:3.8.9-management
+        restart: unless-stopped
+        container_name: rabbit-mq
+        ports:
+            - "15672:15672"
+        environment:
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+    posts_db_data:
+        name: posts_db_data
+        driver: local
+    comments_db_data:
+        name: comments_db_data
+        driver: local
+    query_db_data:
+        name: query_db_data
+        driver: local

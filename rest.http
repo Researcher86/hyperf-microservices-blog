@@ -1,0 +1,23 @@
+GET http://localhost:9501/posts
+Content-Type: application/json
+###
+
+POST http://localhost:9501/posts
+Content-Type: application/json
+
+{
+    "title": "Post 2"
+}
+###
+
+GET http://localhost:9502/posts/1/comments
+Content-Type: application/json
+###
+
+POST http://localhost:9502/posts/1/comments
+Content-Type: application/json
+
+{
+    "content": "For Post 1"
+}
+###

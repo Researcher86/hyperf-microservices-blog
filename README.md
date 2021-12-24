@@ -1,5 +1,6 @@
 # hyperf microservices-blog
 
+http://localhost:3000
 
 composer req --dev hyperf/watcher
 php bin/hyperf.php vendor:publish hyperf/watcher

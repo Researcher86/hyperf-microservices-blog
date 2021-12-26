@@ -48,13 +48,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "Posts\\": "app/"
         },
         "files": []
     },
     "autoload-dev": {
         "psr-4": {
-            "HyperfTest\\": "./test/"
+            "Posts\\Tests\\": "./test/"
         }
     },
     "minimum-stability": "dev",

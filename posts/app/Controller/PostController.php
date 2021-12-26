@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Posts\Controller;
 
-use App\Amqp\Producer\PostCreated;
-use App\Model\Post;
+use Posts\Amqp\Producer\PostCreated;
+use Posts\Model\Post;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 

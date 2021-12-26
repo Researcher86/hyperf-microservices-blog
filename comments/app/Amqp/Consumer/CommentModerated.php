@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Amqp\Consumer;
+namespace Comments\Amqp\Consumer;
 
-use App\Amqp\Producer\CommentUpdated;
-use App\Model\Comment;
+use Comments\Amqp\Producer\CommentUpdated;
+use Comments\Model\Comment;
 use Hyperf\Amqp\Producer;
 use Hyperf\Amqp\Result;
 use Hyperf\Amqp\Annotation\Consumer;

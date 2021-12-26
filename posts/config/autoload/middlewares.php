@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Middleware\CorsMiddleware;
+use Posts\Middleware\CorsMiddleware;
 
 return [
     'http' => [

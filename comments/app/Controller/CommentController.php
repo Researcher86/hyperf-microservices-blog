@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Comments\Controller;
 
-use App\Amqp\Producer\CommentCreated;
-use App\Model\Comment;
+use Comments\Amqp\Producer\CommentCreated;
+use Comments\Model\Comment;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 

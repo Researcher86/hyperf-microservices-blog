@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Amqp\Consumer;
+namespace Moderation\Amqp\Consumer;
 
-use App\Model\Comment;
+use Moderation\Model\Comment;
 use Hyperf\Amqp\Producer;
-use App\Amqp\Producer\CommentModerated;
+use Moderation\Amqp\Producer\CommentModerated;
 use Hyperf\Amqp\Result;
 use Hyperf\Amqp\Annotation\Consumer;
 use Hyperf\Amqp\Message\ConsumerMessage;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Amqp\Consumer;
+namespace Query\Amqp\Consumer;
 
-use App\Model\Post;
+use Query\Model\Post;
 use Hyperf\Amqp\Result;
 use Hyperf\Amqp\Annotation\Consumer;
 use Hyperf\Amqp\Message\ConsumerMessage;
